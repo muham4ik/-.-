@@ -1,6 +1,6 @@
 import axios from "axios"
 const http = axios.create({
-    baseURL: "https://service.olimjanov.uz/v1"
+    baseURL: "https://store.go-clothes.uz/v1"
 })
 
 http.interceptors.request.use((config)=>{

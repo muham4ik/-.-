@@ -6,9 +6,12 @@ import Typography from "@mui/material/Typography";
 import { useSpring, animated } from "@react-spring/web";
 import { forwardRef, cloneElement } from "react";
 import { Button, TextField } from "@mui/material";
-import service from "../../../service/service";
-import { servicesValidationSchema } from "@validation";
+import category from "../../../service/category";
+import { createCategoryValidationSchema } from "@validation";
 import { ErrorMessage, Field, Form, Formik } from "formik";
+import Notification from "@notification";
+import { ToastContainer } from "react-toastify";
+
 const Fade = forwardRef(function Fade(props, ref) {
   const { children, in: open, onClick, onEnter, onExited, ...other } = props;
   const style = useSpring({
@@ -32,6 +35,7 @@ const Fade = forwardRef(function Fade(props, ref) {
     </animated.div>
   );
 });
+
 Fade.propTypes = {
   children: PropTypes.element.isRequired,
   in: PropTypes.bool,
@@ -40,6 +44,7 @@ Fade.propTypes = {
   onExited: PropTypes.func,
   ownerState: PropTypes.any,
 };
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -54,33 +59,55 @@ const style = {
 
 export default function Index({ open, handleClose, item }) {
   const initialValues = {
-    name: item?.name ? item?.name : "",
-    price: item?.price ? item?.price : "",
+    category_name: item?.category_name ? item?.category_name : "",
   };
+
   const handleSubmit = async (values) => {
-    if (item && item.id) {
-      const paylaod = { id: item.id, ...values };
-      try {
-        const response = await service.update(paylaod);
-        if (response.status === 200) {
-          window.location.reload();
+    try {
+      console.log("Submitted values:", values);
+      if (item && item.category_id) {
+        try {
+          const response = await category.update({ category_id: item.category_id, ...values });
+          if (response.status === 201 || response.status === 200) {
+            Notification({
+              title: "Successfully edited",
+              type: "success",
+            });
+            setTimeout(() => {
+              window.location.reload();
+            }, 2300);
+           
+          }
+         
+        } catch (error) {
+          console.log(error);
         }
-      } catch (error) {
-        console.log(error);
-      }
-    } else {
-      try {
-        const response = await service.create(values);
-        if (response.status === 201) {
-          window.location.reload();
+      } else {
+        try {
+          const response = await category.create(values);
+          if (response.status === 201) {
+            Notification({
+              title: "Successfully added",
+              type: "success",
+            });
+            setTimeout(() => {
+              window.location.reload();
+            }, 2300);
+            
+          }
+         
+        } catch (error) {
+          console.log(error);
         }
-      } catch (error) {
-        console.log(error);
       }
+    } catch (error) {
+      console.log(error);
     }
   };
+
   return (
     <div>
+            <ToastContainer />
       <Modal
         aria-labelledby="spring-modal-title"
         aria-describedby="spring-modal-description"
@@ -101,18 +128,19 @@ export default function Index({ open, handleClose, item }) {
               variant="h5"
               sx={{ textAlign: "center" }}
               component="h2"
+              className="fs-1"
             >
-              Create Service
+              Create Category
             </Typography>
             <Formik
               initialValues={initialValues}
-              validationSchema={servicesValidationSchema}
+              validationSchema={createCategoryValidationSchema}
               onSubmit={handleSubmit}
             >
               {({ isSubmitting }) => (
                 <Form>
                   <Field
-                    name="name"
+                    name="category_name"
                     type="text"
                     as={TextField}
                     label="Name"
@@ -121,28 +149,13 @@ export default function Index({ open, handleClose, item }) {
                     variant="outlined"
                     helperText={
                       <ErrorMessage
-                        name="name"
+                        name="category_name"
                         component="p"
                         className="text-[red] text-[15px]"
                       />
                     }
                   />
-                  <Field
-                    name="price"
-                    type="number"
-                    as={TextField}
-                    label="Price"
-                    fullWidth
-                    margin="normal"
-                    variant="outlined"
-                    helperText={
-                      <ErrorMessage
-                        name="price"
-                        component="p"
-                        className="text-[red] text-[15px]"
-                      />
-                    }
-                  />
+                  
                   <Button
                     type="submit"
                     variant="contained"

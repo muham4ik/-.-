@@ -1,0 +1,39 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .product-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .product-title {
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+  
+  .product-info {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .product-image img {
+    max-width: 300px;
+    height: auto;
+    border-radius: 10px;
+  }
+  
+  .product-meta {
+    max-width: 600px;
+  }
+  
+  .product-meta p {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+  }
+  

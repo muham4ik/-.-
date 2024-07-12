@@ -1,0 +1,38 @@
+.btn-add-category {
+    width: 170px;
+    background-color: #FF6E30;
+    padding: 12px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-add-category:hover {
+    background-color: transparent;
+    color: #FF6E30;
+    border: 1px solid #FF6E30;
+  }
+  
+  .styled-input {
+    width: 300px;
+    padding: 10px;
+    border: 1px solid #FF6E30;
+    border-radius: 8px;
+    color: #FF6E30;
+    outline: none;
+    transition: all 0.3s ease;
+  }
+  
+  .styled-input::placeholder {
+    color: #FF6E30;
+  }
+  
+  .styled-input:focus {
+    border-color: #FF6E30;
+    box-shadow: 0 0 5px #FF6E30;
+  }
+  

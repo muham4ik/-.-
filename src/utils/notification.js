@@ -1,4 +1,4 @@
-import { Bounce, toast } from "react-toastify";
+import { Bounce, toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Notification = (props) => {

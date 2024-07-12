@@ -11,11 +11,13 @@ export default defineConfig({
       {find: "@router" , replacement: "/src/router/index.jsx"},
       {find: "@routes" , replacement: "/src/router/routes.jsx"},
       {find: "@service" , replacement: "/src/service/index.js"},
-      {find: "@order" , replacement: "/src/service/index.js"},
+      {find: "@worker" , replacement: "/src/service/worker.js"},
       {find: "@assets" , replacement: "/src/assets/index.jsx"},
       {find: "@modal" , replacement: "/src/components/modal"},
       {find: "@validation" , replacement: "/src/utils/validation.js"},
-      {find: "@notification" , replacement: "/src/utils/notification.js"}
+      {find: "@notification" , replacement: "/src/utils/notification.js"},
     ],
   },
 })
+
+
