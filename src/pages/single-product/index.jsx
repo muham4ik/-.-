@@ -40,15 +40,15 @@ const SingleProduct = () => {
         <h1 className="product-title">{data.product_name}</h1>
         <div className="product-info">
           <div className="product-image">
-            <img src={data.image_url[0]} alt={data.product_name} />
+            <img src={data.image_url && data.image_url.length > 0 ? data.image_url[0] : "No result"} alt="" />
           </div>
           <div className="product-meta">
             <p><strong>Category:</strong> {data.category_id}</p>
             <p><strong>Description:</strong> {data.description}</p>
             <p><strong>Made in:</strong> {data.made_in}</p>
             <p><strong>For gender:</strong> {data.for_gender}</p>
-            <p><strong>Colors:</strong> {data.color.join(", ")}</p>
-            <p><strong>Sizes:</strong> {data.size.join(", ")}</p>
+            <p><strong>Colors:</strong> {data.color ? data.color.join(", ") : "N/A"}</p>
+            <p><strong>Sizes:</strong> {data.size ? data.size.join(", ") : "N/A"}</p>
             <p><strong>Cost:</strong> ${data.cost}</p>
             <p><strong>Discount:</strong> {data.discount}%</p>
             <p><strong>Count:</strong> {data.count}</p>

@@ -17,7 +17,8 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import routes from "@routes"
  import Logo from "../../../assets/icons/oligarch.svg"
-import {useLocation, NavLink , Outlet} from 'react-router-dom'
+ import MuiModal from "../../../components/modal/mui-mdal"
+import {useLocation, NavLink , Outlet, useNavigate} from 'react-router-dom'
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -88,6 +89,8 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 export default function MiniDrawer() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const navigate = useNavigate()
+  const [openn,setOppen] = React.useState(false)
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -97,9 +100,17 @@ export default function MiniDrawer() {
     setOpen(false);
   };
   const  {pathname} = useLocation();
+  const handleNavigate = ()=>{
+    setOppen(true)
+  }
   return (
+    <>
+    <MuiModal
+    open={openn}
+    onClose={()=>setOppen(false)}
+    />
     <Box sx={{ display: 'flex'}}>
-      <CssBaseline />
+      <CssBaseline/>
       <AppBar position="fixed"  open={open}>
         <Toolbar className='bg-[#FF6E30]'>
           <IconButton
@@ -115,8 +126,15 @@ export default function MiniDrawer() {
             <MenuIcon className='fs-1' />
             <img src={<Logo/>} alt="" />
           </IconButton>
-          <Typography variant="h6" noWrap component="div" className='d-flex align-items-center gap-1 text-[#FFFFFFE5] '>
+          <Typography variant="h6" noWrap component="div" className='d-flex gap-[1100px] '>
+          <div className="main d-flex align-items-center gap-1 text-[#FFFFFFE5]">
           𝓛𝓾𝓲 𝓼𝓱𝓸𝓹.𝓾𝔃 <box-icon type='solid' size="36px" color="#FFFFFFE5" name='shopping-bags'></box-icon>
+          </div>
+            <button className='p-2 bg-transparent rounded-md  hover:bg-gray-500' onClick={handleNavigate}>
+              <box-icon name='exit' color="#FFFFFFE5" size="36px">
+                </box-icon>
+                </button>
+          
           </Typography>
         </Toolbar>
       </AppBar>
@@ -164,5 +182,6 @@ export default function MiniDrawer() {
         <Outlet/>
       </Box>
     </Box>
+    </>
   );
 }
